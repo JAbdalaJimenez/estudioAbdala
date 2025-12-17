@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Contable Abdala</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,190 +13,344 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: #2c3e50;
             overflow-x: hidden;
+            background: #fafafa;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
 
         /* Header y Navegación */
         header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
             color: white;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            background: rgba(44, 62, 80, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
 
         nav {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 3rem;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: #d4a574;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
-            transition: color 0.3s;
-            font-weight: 500;
+            transition: all 0.3s;
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-bottom: 5px;
         }
 
-        .nav-links a:hover {
-            color: #d4a574;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #2c3e50 50%, #34495e 100%);
             color: white;
-            padding: 150px 2rem 100px;
+            padding: 180px 3rem 120px;
             text-align: center;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 165, 116, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 1s ease;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease;
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
+        .hero .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
             color: #d4a574;
+            font-weight: 300;
+            letter-spacing: 1px;
             animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.3s both;
         }
 
         .cta-button {
             display: inline-block;
             background: #d4a574;
             color: white;
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3rem;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s;
-            animation: fadeInUp 1s ease 0.4s both;
+            border-radius: 4px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease 0.5s both;
+            border: 2px solid #d4a574;
         }
 
         .cta-button:hover {
-            background: #c19563;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 165, 116, 0.3);
+            background: transparent;
+            color: #d4a574;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
         }
 
         /* Secciones */
         section {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 80px 2rem;
+            padding: 120px 3rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            color: #d4a574;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: block;
         }
 
         h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
             color: #2c3e50;
-            text-align: center;
+            font-weight: 600;
+            letter-spacing: -1px;
+        }
+
+        .section-description {
+            font-size: 1.15rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
         /* Sobre Nosotros */
         .about {
-            background: #f8f9fa;
+            background: white;
         }
 
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 5rem;
             align-items: center;
+            margin-top: 4rem;
         }
 
         .about-text {
             font-size: 1.1rem;
             color: #555;
-            line-height: 1.8;
+            line-height: 2;
+        }
+
+        .about-text p {
+            margin-bottom: 1.8rem;
+        }
+
+        .about-text strong {
+            color: #2c3e50;
+            font-weight: 600;
         }
 
         .about-image {
-            background: linear-gradient(135deg, #d4a574 0%, #c19563 100%);
-            height: 400px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            height: 500px;
+            border-radius: 2px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: white;
+            font-size: 5rem;
+            color: #d4a574;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
         }
 
         /* Servicios */
+        .services {
+            background: #fafafa;
+        }
+
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
         }
 
         .service-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s;
+            padding: 3rem 2.5rem;
+            border-radius: 2px;
+            border: 1px solid #e8e8e8;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #d4a574 0%, #c19563 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            border-color: #d4a574;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
         }
 
         .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
             color: #d4a574;
         }
 
         .service-card h3 {
             color: #2c3e50;
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
 
         .service-card p {
             color: #666;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1rem;
         }
 
         /* Ubicación */
         .location {
-            background: #f8f9fa;
+            background: white;
         }
 
         .location-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 2rem;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            margin-top: 4rem;
         }
 
         .location-info {
@@ -207,36 +362,77 @@
         .location-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
+            margin-bottom: 2.5rem;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: #fafafa;
+            border-radius: 2px;
+            border-left: 3px solid #d4a574;
+            transition: all 0.3s ease;
         }
 
-        .location-item i {
-            font-size: 1.5rem;
+        .location-item:hover {
+            background: white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            transform: translateX(5px);
+        }
+
+        .location-item-icon {
+            font-size: 1.8rem;
             color: #d4a574;
-            margin-top: 0.2rem;
+            margin-top: 0.3rem;
+        }
+
+        .location-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .location-item p {
+            color: #666;
+            line-height: 1.8;
         }
 
         .map-container {
-            background: #ddd;
-            height: 400px;
-            border-radius: 10px;
+            background: #e8e8e8;
+            height: 550px;
+            border-radius: 2px;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .map-container iframe {
+            filter: grayscale(30%);
         }
 
         /* Footer */
         footer {
-            background: #1a1a1a;
+            background: #1a1a2e;
             color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 2px;
+            background: #d4a574;
+            margin: 1.5rem auto;
         }
 
         /* Animaciones */
-        @keyframes fadeInDown {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -244,68 +440,130 @@
             }
         }
 
-        @keyframes fadeInUp {
+        @keyframes rotate {
             from {
-                opacity: 0;
-                transform: translateY(30px);
+                transform: rotate(0deg);
             }
             to {
-                opacity: 1;
-                transform: translateY(0);
+                transform: rotate(360deg);
             }
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
+            nav {
+                padding: 0 2rem;
+            }
+
             .nav-links {
-                flex-direction: column;
-                gap: 1rem;
+                gap: 2rem;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 3.5rem;
+            }
+
+            h2 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero {
+                padding: 140px 2rem 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero .description {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 80px 2rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
             }
 
             .about-content,
             .location-content {
                 grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            h2 {
-                font-size: 2rem;
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 350px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <nav>
-            <div class="logo">📊 Estudio Contable Abdala</div>
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                Estudio Contable Abdala
+            </div>
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#nosotros">Nosotros</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#ubicacion">Ubicación</a></li>
-                <li><a href="shop.html">🛒 Shop</a></li>
+                <li><a href="shop.html">Shop</a></li>
             </ul>
         </nav>
     </header>
 
     <section id="inicio" class="hero">
-        <h1>Estudio Contable Abdala</h1>
-        <p>Soluciones contables profesionales para tu tranquilidad financiera</p>
-        <a href="#servicios" class="cta-button">Conocé Nuestros Servicios</a>
+        <div class="hero-content">
+            <h1>Estudio Contable Abdala</h1>
+            <p class="subtitle">Excelencia en Servicios Contables</p>
+            <p class="description">
+                Soluciones profesionales e integrales para la gestión financiera y fiscal de su empresa. 
+                Más de una década de experiencia respaldando el crecimiento de nuestros clientes.
+            </p>
+            <a href="#servicios" class="cta-button">Conocer Servicios</a>
+        </div>
     </section>
 
     <section id="nosotros" class="about">
-        <h2>Sobre Nosotros</h2>
+        <div class="section-header">
+            <span class="section-label">Quiénes Somos</span>
+            <h2>Sobre Nosotros</h2>
+            <p class="section-description">
+                Un equipo de profesionales comprometidos con el éxito financiero de nuestros clientes
+            </p>
+        </div>
         <div class="about-content">
             <div class="about-text">
-                <p>En <strong>Estudio Contable Abdala</strong> nos dedicamos a brindar servicios contables de excelencia, acompañando a empresas y particulares en la gestión de sus obligaciones fiscales y financieras.</p>
-                <br>
-                <p>Con años de experiencia en el mercado, nuestro equipo de profesionales está comprometido con la transparencia, la eficiencia y el crecimiento de nuestros clientes. Creemos que una buena gestión contable es la base del éxito empresarial.</p>
-                <br>
-                <p>Nos especializamos en ofrecer soluciones personalizadas que se adaptan a las necesidades específicas de cada cliente, utilizando las últimas herramientas tecnológicas y cumpliendo con todas las normativas vigentes.</p>
+                <p>En <strong>Estudio Contable Abdala</strong>, nos especializamos en brindar servicios contables de excelencia, acompañando a empresas y particulares en la gestión estratégica de sus obligaciones fiscales y financieras.</p>
+                
+                <p>Con años de trayectoria en el mercado, nuestro equipo de profesionales certificados está comprometido con la transparencia, la eficiencia y el crecimiento sostenible de nuestros clientes.</p>
+                
+                <p>Creemos firmemente que una gestión contable profesional y personalizada es la base fundamental del éxito empresarial. Por ello, utilizamos las últimas herramientas tecnológicas y nos mantenemos actualizados con todas las normativas vigentes.</p>
             </div>
             <div class="about-image">
                 💼
@@ -313,72 +571,83 @@
         </div>
     </section>
 
-    <section id="servicios">
-        <h2>Lo Que Hacemos</h2>
+    <section id="servicios" class="services">
+        <div class="section-header">
+            <span class="section-label">Nuestros Servicios</span>
+            <h2>Lo Que Hacemos</h2>
+            <p class="section-description">
+                Soluciones integrales adaptadas a las necesidades específicas de cada cliente
+            </p>
+        </div>
         <div class="services-grid">
             <div class="service-card">
                 <div class="service-icon">📋</div>
                 <h3>Asesoramiento Contable</h3>
-                <p>Brindamos asesoramiento integral en materia contable, ayudándote a tomar las mejores decisiones financieras para tu negocio.</p>
+                <p>Brindamos asesoramiento integral en materia contable y financiera, ayudándole a tomar las mejores decisiones estratégicas para optimizar los recursos de su negocio.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">💰</div>
                 <h3>Liquidación de Impuestos</h3>
-                <p>Nos encargamos de la liquidación y presentación de todos tus impuestos, asegurando el cumplimiento de las obligaciones fiscales.</p>
+                <p>Gestión completa de la liquidación y presentación de todos sus impuestos, garantizando el cumplimiento puntual de las obligaciones fiscales vigentes.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">📊</div>
                 <h3>Estados Contables</h3>
-                <p>Elaboramos estados contables claros y precisos que reflejan la situación real de tu empresa para una mejor toma de decisiones.</p>
+                <p>Elaboración de estados contables claros, precisos y detallados que reflejan fielmente la situación patrimonial de su empresa para una mejor toma de decisiones.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">👥</div>
                 <h3>Liquidación de Sueldos</h3>
-                <p>Gestión completa de nómina y liquidación de sueldos, cumpliendo con todas las normativas laborales vigentes.</p>
+                <p>Gestión integral de nómina y liquidación de sueldos, cumpliendo rigurosamente con todas las normativas laborales y de seguridad social vigentes.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">🏢</div>
                 <h3>Constitución de Sociedades</h3>
-                <p>Te acompañamos en todo el proceso de constitución y registro de sociedades comerciales.</p>
+                <p>Asesoramiento completo en el proceso de constitución y registro de sociedades comerciales, desde la planificación hasta la inscripción definitiva.</p>
             </div>
             <div class="service-card">
                 <div class="service-icon">📈</div>
                 <h3>Planeamiento Tributario</h3>
-                <p>Diseñamos estrategias tributarias eficientes para optimizar la carga fiscal de tu empresa de manera legal.</p>
+                <p>Diseño de estrategias tributarias eficientes y personalizadas para optimizar legalmente la carga fiscal de su empresa y maximizar la rentabilidad.</p>
             </div>
         </div>
     </section>
 
     <section id="ubicacion" class="location">
-        <h2>Nuestra Ubicación</h2>
+        <div class="section-header">
+            <span class="section-label">Visítenos</span>
+            <h2>Nuestra Ubicación</h2>
+            <p class="section-description">
+                Estamos a su disposición para atenderle personalmente
+            </p>
+        </div>
         <div class="location-content">
             <div class="location-info">
                 <div class="location-item">
-                    <div>📍</div>
+                    <div class="location-item-icon">📍</div>
                     <div>
                         <h3>Dirección</h3>
                         <p>Absalón Rojas 256<br>La Banda, Santiago del Estero<br>Argentina</p>
                     </div>
                 </div>
                 <div class="location-item">
-                    <div>📞</div>
+                    <div class="location-item-icon">📞</div>
                     <div>
                         <h3>Contacto</h3>
-                        <p>Teléfono: [Tu número]<br>Email: [Tu email]</p>
+                        <p>Teléfono: 3855197450 <br>Email: cpjuanabdala@gmail.com </p>
                     </div>
                 </div>
                 <div class="location-item">
-                    <div>🕐</div>
+                    <div class="location-item-icon">🕐</div>
                     <div>
                         <h3>Horario de Atención</h3>
-                        <p>Lunes a Viernes: 9:00 - 18:00<br>Sábados: 9:00 - 13:00</p>
+                        <p>Lunes a Viernes: 9:00-12:00 / 17:30-20:30<br>Sábados: 9:00-12:30</p>
                     </div>
                 </div>
             </div>
             <div class="map-container">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3493.4!2d-64.23!3d-27.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDQzJzU0LjgiUyA2NMKwMTMnNDguMCJX!5e0!3m2!1ses!2sar!4v1234567890"
-                    width="100%" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.6673191167374!2d-64.24575202378318!3d-27.727556227743527!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x943b53e203baaa07%3A0xed7adc5a7d49b3ee!2sAbsal%C3%B3n%20Rojas%20256%2C%20G4300%20La%20Banda%2C%20Santiago%20del%20Estero!5e0!3m2!1ses!2sar!4v1765998739269!5m2!1ses!2sar" width="600"
                     height="100%" 
                     style="border:0;" 
                     allowfullscreen="" 
@@ -389,12 +658,14 @@
     </section>
 
     <footer>
-        <p>&copy; 2024 Estudio Contable Abdala. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Estudio Contable Abdala</p>
+        <div class="footer-divider"></div>
         <p>Absalón Rojas 256, La Banda, Santiago del Estero</p>
+        <p>Todos los derechos reservados</p>
     </footer>
 
     <script>
-        // Smooth scroll para los enlaces de navegación
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -408,21 +679,33 @@
             });
         });
 
-        // Efecto de aparición al hacer scroll
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer para animaciones
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.15,
+            rootMargin: '0px 0px -80px 0px'
         };
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    entry.target.style.opacity = '1';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.service-card, .about-content, .location-content').forEach(el => {
+        document.querySelectorAll('.service-card, .location-item, .about-text, .about-image').forEach(el => {
+            el.style.opacity = '0';
             observer.observe(el);
         });
     </script>
