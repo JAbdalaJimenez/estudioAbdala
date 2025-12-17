@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda - Estudio Contable Abdala</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #d4a574;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #d4a574;
+        }
+
+        /* Filters */
+        .filters {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #2c3e50;
+            background: white;
+            color: #2c3e50;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #2c3e50;
+            color: white;
+        }
+
+        /* Products Grid */
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-category {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #d4a574;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .product-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+
+        .product-features li {
+            padding: 0.3rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .product-features li:before {
+            content: "✓ ";
+            color: #d4a574;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .product-price {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .add-to-cart-btn {
+            background: #d4a574;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #c19563;
+            transform: scale(1.05);
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+            transition: right 0.3s;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            background: #2c3e50;
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-info h4 {
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: #d4a574;
+            font-weight: bold;
+        }
+
+        .remove-item {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 2px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #d4a574;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #c19563;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">📊 Estudio Contable Abdala</div>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Servicios Contables Profesionales</h1>
+        <p>Seleccioná el servicio que necesitás para tu empresa o emprendimiento</p>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterProducts('todos')">Todos</button>
+        <button class="filter-btn" onclick="filterProducts('asesoria')">Asesoría</button>
+        <button class="filter-btn" onclick="filterProducts('servicios')">Servicios Puntuales</button>
+        <button class="filter-btn" onclick="filterProducts('consultoria')">Consultoría</button>
+    </div>
+
+    <div class="products-container">
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Mi Carrito</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <p>Tu carrito está vacío</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                title: "Asesoría Monotributista",
+                category: "asesoria",
+                icon: "👤",
+                price: 40.000,
+                description: "Asesoramiento completo para monotributistas",
+                features: ["Categorización correcta", "Optimización tributaria", "Asesoramiento mensual", "Soporte por WhatsApp"]
+            },
+            {
+                id: 2,
+                title: "Asesoría PyME",
+                category: "asesoria",
+                icon: "🏢",
+                price: 40.000,
+                description: "Soluciones integrales para pequeñas y medianas empresas",
+                features: ["Análisis financiero", "Planificación tributaria", "Reuniones mensuales", "Informes personalizados"]
+            },
+            {
+                id: 3,
+                title: "Consultoría por Hora",
+                category: "consultoria",
+                icon: "⏱️",
+                price: 40.000,
+                description: "Consultoría especializada según tus necesidades",
+                features: ["Reunión virtual o presencial", "Informe escrito", "Seguimiento post-consulta", "Flexibilidad horaria"]
+            },
+            {
+                id: 4,
+                title: "Inscripción AFIP",
+                category: "servicios",
+                icon: "📝",
+                price: 30.000,
+                description: "Gestión completa de alta en AFIP",
+                features: ["Alta de CUIT", "Inscripción en impuestos", "Clave fiscal", "Trámite completo"]
+            },
+            {
+                id: 5,
+                title: "Presentación de DDJJ",
+                category: "servicios",
+                icon: "📋",
+                price: 30.000,
+                description: "Presentación de declaraciones juradas mensuales",
+                features: ["IVA", "Ganancias", "Seguridad Social", "Verificación previa"]
+            },
+            {
+                id: 6,
+                title: "Constitución de Sociedades",
+                category: "servicios",
+                icon: "🏛️",
+                price: 75.000,
+                description: "Asesoramiento y gestión para constituir tu empresa",
+                features: ["SRL o SA", "Estatuto social", "Inscripción registral", "CUIT societario"]
+            },
+            {
+                id: 7,
+                title: "Liquidación de Sueldos",
+                category: "servicios",
+                icon: "💰",
+                price: 25.000,
+                description: "Por empleado - Liquidación mensual completa",
+                features: ["Recibos de sueldo", "Cargas sociales", "F931", "Libro de sueldos digital"]
+            },
+            {
+                id: 8,
+                title: "Planificación Tributaria",
+                category: "consultoria",
+                icon: "📊",
+                price: 40.000,
+                description: "Estrategia fiscal para optimizar tu carga impositiva",
+                features: ["Análisis tributario", "Plan de acción", "Proyecciones", "Reunión de seguimiento"]
+            },
+            {
+                id: 9,
+                title: "Auditoría Contable",
+                category: "consultoria",
+                icon: "🔍",
+                price: 75.000,
+                description: "Revisión integral de tu contabilidad",
+                features: ["Análisis completo", "Informe detallado", "Recomendaciones", "Plan de mejora"]
+            }
+        ];
+
+        let cart = [];
+
+        function renderProducts(filter = 'todos') {
+            const grid = document.getElementById('productsGrid');
+            const filteredProducts = filter === 'todos' 
+                ? products 
+                : products.filter(p => p.category === filter);
+
+            grid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card">
+                    <div class="product-header">
+                        <span class="product-category">${getCategoryName(product.category)}</span>
+                        <div class="product-icon">${product.icon}</div>
+                        <h3>${product.title}</h3>
+                    </div>
+                    <div class="product-body">
+                        <p class="product-description">${product.description}</p>
+                        <ul class="product-features">
+                            ${product.features.map(f => `<li>${f}</li>`).join('')}
+                        </ul>
+                        <div class="product-footer">
+                            <div class="product-price">$${product.price.toLocaleString()}</div>
+                            <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                                Agregar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'asesoria': 'Asesoría',
+                'servicios': 'Servicio',
+                'consultoria': 'Consultoría'
+            };
+            return names[category] || category;
+        }
+
+        function filterProducts(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderProducts(category);
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCart();
+            showNotification('Producto agregado al carrito');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart"><p>Tu carrito está vacío</p></div>';
+                cartTotal.textContent = '$0';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.title}</h4>
+                        <p>Cantidad: ${item.quantity}</p>
+                        <p class="cart-item-price">$${(item.price * item.quantity).toLocaleString()}</p>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `$${total.toLocaleString()}`;
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+
+            // Crear mensaje para WhatsApp
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let message = '¡Hola! Estoy interesado en los siguientes servicios:\n\n';
+            
+            cart.forEach(item => {
+                message += `📌 ${item.title}\n`;
+                message += `   Cantidad: ${item.quantity}\n`;
+                message += `   Precio: ${(item.price * item.quantity).toLocaleString()}\n\n`;
+            });
+            
+            message += `💰 *Total: ${total.toLocaleString()}*\n\n`;
+            message += 'Me gustaría coordinar el pago y el inicio del servicio.';
+
+            // Tu número de WhatsApp (CAMBIÁ ESTE NÚMERO)
+            const phoneNumber = '5493855197450'; 
+            
+            // Codificar el mensaje para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Abrir WhatsApp
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+            
+            // Limpiar carrito
+            cart = [];
+            updateCart();
+            toggleCart();
+        }
+
+        function showNotification(message) {
+            // Simple notification
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: #d4a574;
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2000);
+        }
+
+        // Initialize
+        renderProducts();
+    </script>
+</body>
+</html>
