@@ -1,10 +1,12 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Contable Abdala</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome para íconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -25,22 +27,23 @@
             font-weight: 600;
         }
 
-        /* Header y Navegación */
+        /* Header y Navegación - CON LOGO GIGANTE */
         header {
             background: rgba(44, 62, 80, 0.95);
             backdrop-filter: blur(10px);
             color: white;
-            padding: 1.5rem 0;
+            padding: 1.5rem 0; /* MANTIENE PADDING ORIGINAL */
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
+            min-height: 80px; /* Altura mínima para logo grande */
         }
 
         header.scrolled {
-            padding: 1rem 0;
+            padding: 1rem 0; /* MANTIENE PADDING ORIGINAL */
             background: rgba(44, 62, 80, 0.98);
             box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
@@ -52,55 +55,37 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 3rem;
+            position: relative; /* Necesario para logo superpuesto */
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            flex-shrink: 0;
+            text-decoration: none;
+            position: relative;
+            z-index: 1001; /* Por encima de otros elementos */
         }
 
-        .logo-icon {
-            font-size: 2rem;
-            color: #d4a574;
+        .logo-img {
+            height: 300px; /* LOGO GIGANTE */
+            width: auto;
+            filter: brightness(0) invert(1); /* Logo blanco sobre fondo oscuro */
+            transition: all 0.3s ease;
+            position: absolute; /* Fuera del flujo normal */
+            top: 50%; /* Centrado vertical */
+            left: 0;
+            transform: translateY(-50%); /* Centrado perfecto */
+            pointer-events: auto; /* Clickable */
         }
 
-        /* Menú hamburguesa */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            transition: all 0.3s;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(7px, 7px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
+        /* Espacio para el logo superpuesto */
         .nav-links {
             display: flex;
             list-style: none;
             gap: 3rem;
+            margin-left: 320px; /* Espacio para logo de 300px + margen */
+            position: relative;
+            z-index: 1000;
         }
 
         .nav-links a {
@@ -129,6 +114,36 @@
             width: 100%;
         }
 
+        /* Menú hamburguesa */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            position: relative;
+            z-index: 1001;
+            margin-left: auto; /* Lo empuja a la derecha */
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, #1a1a2e 0%, #2c3e50 50%, #34495e 100%);
@@ -142,6 +157,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            margin-top: 0; /* Asegura que no haya margen extra */
         }
 
         .hero::before {
@@ -289,8 +305,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(3rem, 6vw, 5rem);
-            color: #d4a574;
             position: relative;
             overflow: hidden;
         }
@@ -304,6 +318,12 @@
             height: 200%;
             background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
             animation: rotate 20s linear infinite;
+        }
+
+        .about-image i {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: #d4a574;
+            z-index: 2;
         }
 
         /* Servicios */
@@ -412,6 +432,8 @@
             color: #d4a574;
             margin-top: 0.3rem;
             flex-shrink: 0;
+            width: 30px;
+            text-align: center;
         }
 
         .location-item h3 {
@@ -484,8 +506,16 @@
             }
         }
 
-        /* Responsive Tablets */
+        /* Ajustes responsive para el logo gigante */
         @media (max-width: 1024px) {
+            .logo-img {
+                height: 200px; /* Reduce en tablets */
+            }
+            
+            .nav-links {
+                margin-left: 220px; /* Ajusta espacio para logo reducido */
+            }
+            
             nav {
                 padding: 0 2rem;
             }
@@ -503,25 +533,14 @@
             }
         }
 
-        /* Responsive Móviles */
         @media (max-width: 768px) {
-            nav {
-                padding: 0 1.5rem;
+            .logo-img {
+                height: 150px; /* Más pequeño en móviles */
+                left: 1.5rem; /* Ajusta posición para padding móvil */
             }
-
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            .logo-icon {
-                font-size: 1.5rem;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
+            
             .nav-links {
+                margin-left: 0; /* En móvil el menú ocupa todo */
                 position: fixed;
                 top: 80px;
                 left: -100%;
@@ -533,29 +552,39 @@
                 padding: 2rem;
                 transition: left 0.3s ease;
                 overflow-y: auto;
+                z-index: 999;
             }
-
+            
             .nav-links.active {
                 left: 0;
             }
-
+            
             .nav-links li {
                 width: 100%;
                 border-bottom: 1px solid rgba(255,255,255,0.1);
             }
-
+            
             .nav-links a {
                 display: block;
                 padding: 1.2rem 0;
                 font-size: 1.1rem;
             }
-
+            
             .nav-links a::after {
                 display: none;
             }
+            
+            .menu-toggle {
+                display: flex;
+                z-index: 1002; /* Por encima del logo */
+            }
+            
+            nav {
+                padding: 0 1.5rem;
+            }
 
             .hero {
-                padding: 120px 1.5rem 80px;
+                padding: 140px 1.5rem 80px;
                 min-height: auto;
             }
 
@@ -592,10 +621,18 @@
             }
         }
 
-        /* Responsive muy pequeños */
         @media (max-width: 480px) {
+            .logo-img {
+                height: 120px; /* Aún más pequeño en móviles pequeños */
+                left: 1rem; /* Ajuste de padding */
+            }
+            
+            header {
+                min-height: 70px;
+            }
+
             .hero {
-                padding: 100px 1rem 60px;
+                padding: 120px 1rem 60px;
             }
 
             section {
@@ -620,7 +657,7 @@
         @media (max-height: 600px) and (orientation: landscape) {
             .hero {
                 min-height: auto;
-                padding: 120px 1.5rem 60px;
+                padding: 140px 1.5rem 60px;
             }
 
             .nav-links {
@@ -633,10 +670,11 @@
 <body>
     <header id="header">
         <nav>
-            <div class="logo">
-                <span class="logo-icon">📊</span>
-                Estudio Contable Abdala
-            </div>
+            <a href="#inicio" class="logo">
+                <img src="./Black_And_White_Aesthetic_Minimalist_Modern_Simple_Typography_Coconut_Cosmetics_Logo-removebg-preview.png" 
+                    alt="Estudio Contable Abdala"
+                    class="logo-img">
+            </a>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
                 <span></span>
@@ -681,7 +719,7 @@
                 <p>Creemos firmemente que una gestión contable profesional y personalizada es la base fundamental del éxito empresarial. Por ello, utilizamos las últimas herramientas tecnológicas y nos mantenemos actualizados con todas las normativas vigentes.</p>
             </div>
             <div class="about-image">
-                💼
+                <i class="fas fa-briefcase"></i>
             </div>
         </div>
     </section>
@@ -696,32 +734,32 @@
         </div>
         <div class="services-grid">
             <div class="service-card">
-                <div class="service-icon">📋</div>
+                <div class="service-icon"><i class="fas fa-file-contract"></i></div>
                 <h3>Asesoramiento Contable</h3>
                 <p>Brindamos asesoramiento integral en materia contable y financiera, ayudándole a tomar las mejores decisiones estratégicas para optimizar los recursos de su negocio.</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">💰</div>
+                <div class="service-icon"><i class="fas fa-calculator"></i></div>
                 <h3>Liquidación de Impuestos</h3>
                 <p>Gestión completa de la liquidación y presentación de todos sus impuestos, garantizando el cumplimiento puntual de las obligaciones fiscales vigentes.</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">📊</div>
+                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
                 <h3>Estados Contables</h3>
                 <p>Elaboración de estados contables claros, precisos y detallados que reflejan fielmente la situación patrimonial de su empresa para una mejor toma de decisiones.</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">👥</div>
+                <div class="service-icon"><i class="fas fa-user-tie"></i></div>
                 <h3>Liquidación de Sueldos</h3>
                 <p>Gestión integral de nómina y liquidación de sueldos, cumpliendo rigurosamente con todas las normativas laborales y de seguridad social vigentes.</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">🏢</div>
+                <div class="service-icon"><i class="fas fa-landmark"></i></div>
                 <h3>Constitución de Sociedades</h3>
                 <p>Asesoramiento completo en el proceso de constitución y registro de sociedades comerciales, desde la planificación hasta la inscripción definitiva.</p>
             </div>
             <div class="service-card">
-                <div class="service-icon">📈</div>
+                <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
                 <h3>Planeamiento Tributario</h3>
                 <p>Diseño de estrategias tributarias eficientes y personalizadas para optimizar legalmente la carga fiscal de su empresa y maximizar la rentabilidad.</p>
             </div>
@@ -739,21 +777,21 @@
         <div class="location-content">
             <div class="location-info">
                 <div class="location-item">
-                    <div class="location-item-icon">📍</div>
+                    <div class="location-item-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <div>
                         <h3>Dirección</h3>
                         <p>Absalón Rojas 256<br>La Banda, Santiago del Estero<br>Argentina</p>
                     </div>
                 </div>
                 <div class="location-item">
-                    <div class="location-item-icon">📞</div>
+                    <div class="location-item-icon"><i class="fas fa-phone"></i></div>
                     <div>
                         <h3>Contacto</h3>
                         <p>Teléfono: 3855197450<br>Email: cpjuanabdala@gmail.com</p>
                     </div>
                 </div>
                 <div class="location-item">
-                    <div class="location-item-icon">🕐</div>
+                    <div class="location-item-icon"><i class="fas fa-clock"></i></div>
                     <div>
                         <h3>Horario de Atención</h3>
                         <p>Lunes a Viernes: 9:00-12:00 / 17:30-20:30<br>Sábados: 9:00-12:30</p>
@@ -809,13 +847,23 @@
             });
         });
 
-        // Header scroll effect
+        // Header scroll effect - CON AJUSTE PARA LOGO GRANDE
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
+            const logo = document.querySelector('.logo-img');
+            
             if (window.scrollY > 50) {
                 header.classList.add('scrolled');
+                // Reduce el tamaño del logo al hacer scroll
+                if (window.innerWidth > 768) { // Solo en desktop
+                    logo.style.height = '200px';
+                }
             } else {
                 header.classList.remove('scrolled');
+                // Restaura tamaño original del logo
+                if (window.innerWidth > 768) { // Solo en desktop
+                    logo.style.height = '300px';
+                }
             }
         });
 
@@ -837,6 +885,17 @@
         document.querySelectorAll('.service-card, .location-item, .about-text, .about-image').forEach(el => {
             el.style.opacity = '0';
             observer.observe(el);
+        });
+
+        // Ajustar logo al redimensionar ventana
+        window.addEventListener('resize', () => {
+            const logo = document.querySelector('.logo-img');
+            const header = document.getElementById('header');
+            
+            // Restablece estilos según tamaño de pantalla
+            if (window.innerWidth > 768 && !header.classList.contains('scrolled')) {
+                logo.style.height = '300px';
+            }
         });
     </script>
 </body>

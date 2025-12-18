@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - Estudio Contable Abdala</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome para íconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -35,6 +37,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            min-height: 80px; /* Para logo grande */
         }
 
         nav {
@@ -44,29 +47,36 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 3rem;
+            position: relative; /* Para logo superpuesto */
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            color: white;
             text-decoration: none;
+            position: relative;
+            z-index: 1001;
         }
 
-        .logo-icon {
-            font-size: 2rem;
-            color: #d4a574;
+        .logo-img {
+            height: 300px; /* LOGO GIGANTE */
+            width: auto;
+            filter: brightness(0) invert(1); /* Logo blanco sobre fondo oscuro */
+            transition: all 0.3s ease;
+            position: absolute; /* Fuera del flujo normal */
+            top: 50%; /* Centrado vertical */
+            left: 0;
+            transform: translateY(-50%); /* Centrado perfecto */
+            pointer-events: auto; /* Clickable */
         }
 
         .nav-right {
             display: flex;
             align-items: center;
             gap: 2rem;
+            margin-left: 320px; /* Espacio para logo de 300px */
+            position: relative;
+            z-index: 1000;
         }
 
         .back-link {
@@ -255,6 +265,7 @@
             font-size: 3.5rem;
             margin-bottom: 1rem;
             display: inline-block;
+            color: #d4a574;
         }
 
         .product-category {
@@ -485,7 +496,8 @@
         .empty-cart-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
-            opacity: 0.3;
+            color: #d4a574;
+            opacity: 0.7;
         }
 
         /* Overlay */
@@ -529,10 +541,18 @@
             }
         }
 
-        /* MEDIA QUERIES PARA RESPONSIVE - AGREGADO */
+        /* MEDIA QUERIES PARA RESPONSIVE - CON LOGO GRANDE */
 
         /* Tablets grandes */
         @media (max-width: 1200px) {
+            .logo-img {
+                height: 200px; /* Reduce logo en tablets grandes */
+            }
+            
+            .nav-right {
+                margin-left: 220px; /* Ajusta espacio para logo reducido */
+            }
+            
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
                 gap: 2rem;
@@ -546,6 +566,14 @@
 
         /* Tablets medianas */
         @media (max-width: 1024px) {
+            .logo-img {
+                height: 180px;
+            }
+            
+            .nav-right {
+                margin-left: 200px;
+            }
+            
             .products-grid {
                 grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
                 gap: 1.8rem;
@@ -567,6 +595,14 @@
 
         /* Tablets pequeñas */
         @media (max-width: 900px) {
+            .logo-img {
+                height: 160px;
+            }
+            
+            .nav-right {
+                margin-left: 180px;
+            }
+            
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1.5rem;
@@ -592,20 +628,18 @@
 
         /* Teléfonos grandes y tablets pequeñas */
         @media (max-width: 768px) {
-            nav {
-                padding: 0 1.5rem;
-            }
-            
-            .logo {
-                font-size: 1.4rem;
-            }
-            
-            .logo-icon {
-                font-size: 1.8rem;
+            .logo-img {
+                height: 140px;
+                left: 1.5rem; /* Ajusta posición para padding móvil */
             }
             
             .nav-right {
+                margin-left: 160px;
                 gap: 1.5rem;
+            }
+            
+            nav {
+                padding: 0 1.5rem;
             }
             
             .back-link {
@@ -709,21 +743,18 @@
 
         /* Teléfonos medianos */
         @media (max-width: 576px) {
-            nav {
-                padding: 0 1rem;
-            }
-            
-            .logo {
-                font-size: 1.2rem;
-                gap: 0.5rem;
-            }
-            
-            .logo-icon {
-                font-size: 1.5rem;
+            .logo-img {
+                height: 120px;
+                left: 1rem;
             }
             
             .nav-right {
+                margin-left: 140px;
                 gap: 1rem;
+            }
+            
+            nav {
+                padding: 0 1rem;
             }
             
             .back-link {
@@ -844,6 +875,14 @@
 
         /* Teléfonos pequeños */
         @media (max-width: 400px) {
+            .logo-img {
+                height: 100px;
+            }
+            
+            .nav-right {
+                margin-left: 120px;
+            }
+            
             .hero h1 {
                 font-size: 1.9rem;
             }
@@ -899,6 +938,14 @@
 
         /* Ajuste para pantallas muy grandes */
         @media (min-width: 2000px) {
+            .logo-img {
+                height: 350px; /* Aún más grande en pantallas gigantes */
+            }
+            
+            .nav-right {
+                margin-left: 370px;
+            }
+            
             nav, .filters, .products-container {
                 max-width: 1800px;
             }
@@ -914,13 +961,14 @@
     <header>
         <nav>
             <a href="index.html" class="logo">
-                <span class="logo-icon">📊</span>
-                Estudio Contable Abdala
+                <img src="./Black_And_White_Aesthetic_Minimalist_Modern_Simple_Typography_Coconut_Cosmetics_Logo-removebg-preview.png" 
+                     alt="Estudio Contable Abdala"
+                     class="logo-img">
             </a>
             <div class="nav-right">
                 <a href="index.html" class="back-link">← Volver al inicio</a>
                 <div class="cart-icon" onclick="toggleCart()">
-                    🛒
+                    <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cartCount">0</span>
                 </div>
             </div>
@@ -951,16 +999,22 @@
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Servicios Seleccionados</h2>
-            <button class="close-cart" onclick="toggleCart()">✕</button>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         <div class="cart-items" id="cartItems">
             <div class="empty-cart">
-                <div class="empty-cart-icon">🛒</div>
+                <div class="empty-cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
                 <p>No ha seleccionado ningún servicio</p>
             </div>
         </div>
         <div class="cart-footer">
-            <button class="checkout-btn" onclick="checkout()">Solicitar Presupuesto</button>
+            <button class="checkout-btn" onclick="checkout()">
+                <i class="fas fa-paper-plane"></i> Solicitar Presupuesto
+            </button>
         </div>
     </div>
 
@@ -970,7 +1024,7 @@
                 id: 1,
                 title: "Asesoría Monotributista",
                 category: "asesoria",
-                icon: "👤",
+                icon: "fas fa-user-tie",
                 description: "Servicio integral de asesoramiento para monotributistas, con gestión completa de obligaciones fiscales mensuales.",
                 features: ["Categorización correcta", "Optimización tributaria", "Asesoramiento mensual", "Soporte permanente por WhatsApp"]
             },
@@ -978,7 +1032,7 @@
                 id: 2,
                 title: "Asesoría PyME",
                 category: "asesoria",
-                icon: "🏢",
+                icon: "fas fa-building",
                 description: "Soluciones contables integrales diseñadas específicamente para pequeñas y medianas empresas.",
                 features: ["Análisis financiero detallado", "Planificación tributaria estratégica", "Reuniones mensuales de seguimiento", "Informes personalizados"]
             },
@@ -986,7 +1040,7 @@
                 id: 3,
                 title: "Consultoría por Hora",
                 category: "consultoria",
-                icon: "⏱️",
+                icon: "fas fa-clock",
                 description: "Consultoría especializada adaptada a sus necesidades específicas, con flexibilidad horaria.",
                 features: ["Reunión virtual o presencial", "Informe escrito detallado", "Seguimiento post-consulta", "Máxima flexibilidad horaria"]
             },
@@ -994,7 +1048,7 @@
                 id: 4,
                 title: "Inscripción AFIP",
                 category: "servicios",
-                icon: "📝",
+                icon: "fas fa-file-signature",
                 description: "Gestión completa del alta y registro ante la Administración Federal de Ingresos Públicos.",
                 features: ["Tramitación de CUIT", "Inscripción en impuestos correspondientes", "Gestión de clave fiscal", "Proceso completo incluido"]
             },
@@ -1002,7 +1056,7 @@
                 id: 5,
                 title: "Presentación de DDJJ",
                 category: "servicios",
-                icon: "📋",
+                icon: "fas fa-file-alt",
                 description: "Preparación y presentación profesional de declaraciones juradas mensuales ante organismos fiscales.",
                 features: ["Declaración de IVA", "Impuesto a las Ganancias", "Seguridad Social", "Verificación previa exhaustiva"]
             },
@@ -1010,7 +1064,7 @@
                 id: 6,
                 title: "Constitución de Sociedades",
                 category: "servicios",
-                icon: "🏛️",
+                icon: "fas fa-landmark",
                 description: "Asesoramiento integral y gestión completa para la constitución legal de su empresa.",
                 features: ["SRL o Sociedad Anónima", "Redacción de estatuto social", "Inscripción registral completa", "Obtención de CUIT societario"]
             },
@@ -1018,7 +1072,7 @@
                 id: 7,
                 title: "Liquidación de Sueldos",
                 category: "servicios",
-                icon: "💰",
+                icon: "fas fa-calculator",
                 description: "Servicio mensual por empleado que incluye la liquidación completa de haberes y cargas sociales.",
                 features: ["Recibos de sueldo digitales", "Liquidación de cargas sociales", "Formulario F931", "Libro de sueldos digital actualizado"]
             },
@@ -1026,7 +1080,7 @@
                 id: 8,
                 title: "Planificación Tributaria",
                 category: "consultoria",
-                icon: "📊",
+                icon: "fas fa-chart-pie",
                 description: "Desarrollo de estrategia fiscal personalizada para optimizar legalmente su carga impositiva.",
                 features: ["Análisis tributario completo", "Plan de acción detallado", "Proyecciones financieras", "Reunión de seguimiento trimestral"]
             },
@@ -1034,7 +1088,7 @@
                 id: 9,
                 title: "Auditoría Contable",
                 category: "consultoria",
-                icon: "🔍",
+                icon: "fas fa-search-dollar",
                 description: "Revisión profesional e integral de su contabilidad para detectar oportunidades de mejora.",
                 features: ["Análisis exhaustivo", "Informe técnico detallado", "Recomendaciones específicas", "Plan de mejora personalizado"]
             }
@@ -1052,7 +1106,9 @@
                 <div class="product-card">
                     <div class="product-header">
                         <span class="product-category">${getCategoryName(product.category)}</span>
-                        <div class="product-icon">${product.icon}</div>
+                        <div class="product-icon">
+                            <i class="${product.icon}"></i>
+                        </div>
                         <h3>${product.title}</h3>
                     </div>
                     <div class="product-body">
@@ -1062,7 +1118,7 @@
                         </ul>
                         <div class="product-footer">
                             <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
-                                Solicitar Servicio
+                                <i class="fas fa-cart-plus"></i> Solicitar Servicio
                             </button>
                         </div>
                     </div>
@@ -1098,7 +1154,7 @@
             }
 
             updateCart();
-            showNotification('Servicio agregado');
+            showNotification('Servicio agregado al carrito');
         }
 
         function removeFromCart(productId) {
@@ -1113,7 +1169,13 @@
             cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 
             if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="empty-cart"><div class="empty-cart-icon">🛒</div><p>No ha seleccionado ningún servicio</p></div>';
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <p>No ha seleccionado ningún servicio</p>
+                    </div>`;
                 return;
             }
 
@@ -1122,9 +1184,12 @@
                     <div class="cart-item-info">
                         <h4>${item.title}</h4>
                         <p>Cantidad: ${item.quantity}</p>
+                        <p><i class="${item.icon}"></i> ${getCategoryName(item.category)}</p>
                     </div>
                     <div class="cart-item-actions">
-                        <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
+                        <button class="remove-item" onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
                     </div>
                 </div>
             `).join('');
@@ -1151,8 +1216,6 @@
             });
             
             message += 'Me gustaría recibir un presupuesto y coordinar una reunión para discutir los detalles.';
-
-            // Tu número de WhatsApp (CAMBIÁ ESTE NÚMERO)
             const phoneNumber = '5493855197450'; 
             
             const encodedMessage = encodeURIComponent(message);
@@ -1180,13 +1243,46 @@
                 box-shadow: 0 10px 30px rgba(0,0,0,0.2);
                 font-weight: 500;
                 border-left: 4px solid #d4a574;
+                display: flex;
+                align-items: center;
+                gap: 10px;
             `;
+            
+            // Agregar ícono a la notificación
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-check-circle';
+            icon.style.color = '#d4a574';
+            notification.prepend(icon);
+            
             document.body.appendChild(notification);
+            
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.4s ease';
                 setTimeout(() => notification.remove(), 400);
             }, 2500);
         }
+
+        // Efecto scroll para logo
+        window.addEventListener('scroll', () => {
+            const logo = document.querySelector('.logo-img');
+            if (window.scrollY > 50) {
+                if (window.innerWidth > 768) {
+                    logo.style.height = '200px'; // Reduce al hacer scroll en desktop
+                }
+            } else {
+                if (window.innerWidth > 768) {
+                    logo.style.height = '300px'; // Restaura tamaño original
+                }
+            }
+        });
+
+        // Ajustar logo al redimensionar ventana
+        window.addEventListener('resize', () => {
+            const logo = document.querySelector('.logo-img');
+            if (window.innerWidth > 768 && window.scrollY <= 50) {
+                logo.style.height = '300px';
+            }
+        });
 
         // Initialize
         renderProducts();
