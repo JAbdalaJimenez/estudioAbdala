@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios - Estudio Contable Abdala</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome para íconos profesionales -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -37,7 +36,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            min-height: 80px; /* Para logo grande */
+            min-height: 80px;
         }
 
         nav {
@@ -47,7 +46,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 3rem;
-            position: relative; /* Para logo superpuesto */
+            position: relative;
         }
 
         .logo {
@@ -59,22 +58,22 @@
         }
 
         .logo-img {
-            height: 300px; /* LOGO GIGANTE */
+            height: 300px;
             width: auto;
-            filter: brightness(0) invert(1); /* Logo blanco sobre fondo oscuro */
+            filter: brightness(0) invert(1);
             transition: all 0.3s ease;
-            position: absolute; /* Fuera del flujo normal */
-            top: 50%; /* Centrado vertical */
+            position: absolute;
+            top: 50%;
             left: 0;
-            transform: translateY(-50%); /* Centrado perfecto */
-            pointer-events: auto; /* Clickable */
+            transform: translateY(-50%);
+            pointer-events: auto;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
             gap: 2rem;
-            margin-left: 320px; /* Espacio para logo de 300px */
+            margin-left: 320px;
             position: relative;
             z-index: 1000;
         }
@@ -441,7 +440,51 @@
         .cart-item-actions {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f5f5f5;
+            border-radius: 4px;
+            padding: 0.3rem;
+        }
+
+        .quantity-btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: #34495e;
+            transform: scale(1.1);
+        }
+
+        .quantity-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quantity-value {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+            font-size: 1rem;
         }
 
         .remove-item {
@@ -454,6 +497,7 @@
             font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s;
+            width: 100%;
         }
 
         .remove-item:hover {
@@ -541,16 +585,16 @@
             }
         }
 
-        /* MEDIA QUERIES PARA RESPONSIVE - CON LOGO GRANDE */
+        /* MEDIA QUERIES PARA RESPONSIVE */
 
         /* Tablets grandes */
         @media (max-width: 1200px) {
             .logo-img {
-                height: 200px; /* Reduce logo en tablets grandes */
+                height: 200px;
             }
             
             .nav-right {
-                margin-left: 220px; /* Ajusta espacio para logo reducido */
+                margin-left: 220px;
             }
             
             .products-grid {
@@ -630,7 +674,7 @@
         @media (max-width: 768px) {
             .logo-img {
                 height: 140px;
-                left: 1.5rem; /* Ajusta posición para padding móvil */
+                left: 1.5rem;
             }
             
             .nav-right {
@@ -864,7 +908,7 @@
             
             .cart-item-actions {
                 width: 100%;
-                align-items: flex-end;
+                align-items: center;
             }
             
             .remove-item {
@@ -939,7 +983,7 @@
         /* Ajuste para pantallas muy grandes */
         @media (min-width: 2000px) {
             .logo-img {
-                height: 350px; /* Aún más grande en pantallas gigantes */
+                height: 350px;
             }
             
             .nav-right {
@@ -1160,6 +1204,20 @@
         function removeFromCart(productId) {
             cart = cart.filter(item => item.id !== productId);
             updateCart();
+            showNotification('Servicio eliminado del carrito');
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
         }
 
         function updateCart() {
@@ -1183,12 +1241,20 @@
                 <div class="cart-item">
                     <div class="cart-item-info">
                         <h4>${item.title}</h4>
-                        <p>Cantidad: ${item.quantity}</p>
                         <p><i class="${item.icon}"></i> ${getCategoryName(item.category)}</p>
                     </div>
                     <div class="cart-item-actions">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)" ${item.quantity <= 1 ? 'disabled' : ''}>
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="quantity-value">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
                         <button class="remove-item" onclick="removeFromCart(${item.id})">
-                            <i class="fas fa-trash"></i> Eliminar
+                            <i class="fas fa-trash"></i> Eliminar todo
                         </button>
                     </div>
                 </div>
@@ -1216,7 +1282,7 @@
             });
             
             message += 'Me gustaría recibir un presupuesto y coordinar una reunión para discutir los detalles.';
-            const phoneNumber = '5493855197450'; 
+            const phoneNumber = '5493855197450';
             
             const encodedMessage = encodeURIComponent(message);
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -1248,7 +1314,6 @@
                 gap: 10px;
             `;
             
-            // Agregar ícono a la notificación
             const icon = document.createElement('i');
             icon.className = 'fas fa-check-circle';
             icon.style.color = '#d4a574';
@@ -1262,21 +1327,19 @@
             }, 2500);
         }
 
-        // Efecto scroll para logo
         window.addEventListener('scroll', () => {
             const logo = document.querySelector('.logo-img');
             if (window.scrollY > 50) {
                 if (window.innerWidth > 768) {
-                    logo.style.height = '200px'; // Reduce al hacer scroll en desktop
+                    logo.style.height = '200px';
                 }
             } else {
                 if (window.innerWidth > 768) {
-                    logo.style.height = '300px'; // Restaura tamaño original
+                    logo.style.height = '300px';
                 }
             }
         });
 
-        // Ajustar logo al redimensionar ventana
         window.addEventListener('resize', () => {
             const logo = document.querySelector('.logo-img');
             if (window.innerWidth > 768 && window.scrollY <= 50) {
@@ -1284,7 +1347,6 @@
             }
         });
 
-        // Initialize
         renderProducts();
     </script>
 </body>
